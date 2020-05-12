@@ -48,7 +48,7 @@ public class ExcelReader {
 
         frame.println("--  Informacio: Excel file elso munkalapja fejlec nelkul --\n");
         fillEntries(XLSX_FILE_PATH);
-        frame.println("\n--  Elofeltetel: Marcius - Aprilis - Majus --\n");
+        frame.println("\n--  Elofeltetel: 1. honap - 2. honap - 3. honap --\n");
         splitEntries();
         frame.println("\n--  Szamitas: Melyik honapban hanyszor szerepel egy telefonszam --\n");
         fillPlayers();
@@ -230,21 +230,21 @@ public class ExcelReader {
         may = new ArrayList<Entry>();
 
         for(Entry entry : entries) {
-            if(entry.getMonth().endsWith("rcius"))
+            if(entry.getMonth().endsWith("rcius") || entry.getMonth().endsWith("nius") || entry.getMonth().endsWith("tember"))
                 march.add(entry);
-            if(entry.getMonth().endsWith("rilis"))
+            if(entry.getMonth().endsWith("rilis") || entry.getMonth().endsWith("lius") || entry.getMonth().endsWith("óber"))
                 april.add(entry);
-            if(entry.getMonth().endsWith("jus"))
+            if(entry.getMonth().endsWith("jus") || entry.getMonth().endsWith("gusztus") || entry.getMonth().endsWith("vember"))
                 may.add(entry);
         }
 
-        frame.println("-> March\n");
+        frame.println("-> 1th month\n");
         march.forEach(e->frame.println(e.toString()));
 
-        frame.println("\n-> April\n");
+        frame.println("\n-> 2nd month\n");
         april.forEach(e->frame.println(e.toString()));
 
-        frame.println("\n-> May\n");
+        frame.println("\n-> 3rd month\n");
         may.forEach(e->frame.println(e.toString()));
     }
 
