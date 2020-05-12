@@ -9,7 +9,7 @@ public class MyFrame extends JFrame {
     private JScrollPane scroll;
 
     public MyFrame() {
-        super("Excel feldolgozo programocska");
+        super("Háromhavi résztvevő válogatü");
 
         textArea = new JTextArea(10, 20);
         Font font = new Font("Consolas", Font.PLAIN, 14);
