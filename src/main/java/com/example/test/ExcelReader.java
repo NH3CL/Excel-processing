@@ -29,9 +29,12 @@ public class ExcelReader {
 
     public static Map<String, Integer> triplets;
     public static MyFrame frame;
+    public static List<String> months;
+    public static Map<String, String> monthMap;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
 
+        fillMonths();
 
         frame = new MyFrame();
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -230,12 +233,7 @@ public class ExcelReader {
         may = new ArrayList<Entry>();
 
         for(Entry entry : entries) {
-            if(entry.getMonth().endsWith("rcius") || entry.getMonth().endsWith("nius") || entry.getMonth().endsWith("tember"))
-                march.add(entry);
-            if(entry.getMonth().endsWith("rilis") || entry.getMonth().endsWith("lius") || entry.getMonth().endsWith("óber"))
-                april.add(entry);
-            if(entry.getMonth().endsWith("jus") || entry.getMonth().endsWith("gusztus") || entry.getMonth().endsWith("vember"))
-                may.add(entry);
+            addEntry(entry);
         }
 
         frame.println("-> 1th month\n");
@@ -246,6 +244,27 @@ public class ExcelReader {
 
         frame.println("\n-> 3rd month\n");
         may.forEach(e->frame.println(e.toString()));
+    }
+
+    private static void addEntry(Entry entry) {
+        if(monthMap.keySet().size() == 0) {
+            monthMap.put(entry.getMonth(), "march");
+        }
+
+        if(!monthMap.containsKey(entry.getMonth())) {
+            if(monthMap.keySet().size() == 1) {
+                monthMap.put(entry.getMonth(), "april");
+            } else if(monthMap.keySet().size() == 2) {
+                monthMap.put(entry.getMonth(), "may");
+            }
+        }
+
+        if(monthMap.get(entry.getMonth()).equals("march"))
+            march.add(entry);
+        if(monthMap.get(entry.getMonth()).equals("april"))
+            april.add(entry);
+        if(monthMap.get(entry.getMonth()).equals("may"))
+            may.add(entry);
     }
 
     private static void fillEntries(String sampleXlsxFilePath) throws IOException {
@@ -308,5 +327,23 @@ public class ExcelReader {
 
         workbook.close();
         inputStream.close();
+    }
+
+    private static void fillMonths() {
+        months = new ArrayList<String>();
+        monthMap = new HashMap<>();
+
+        months.add("Január,Januar,January");
+        months.add("Február,Februar,February");
+        months.add("Március,Marcius,March");
+        months.add("Április,Aprilis,April");
+        months.add("Május,Majus,May");
+        months.add("Június,Junius,Juni");
+        months.add("Július,Julius,July");
+        months.add("Augusztus,Augusztus,August");
+        months.add("Szeptember,Szeptember,September");
+        months.add("Október,Oktober,October");
+        months.add("November,November,November");
+        months.add("December,December,December");
     }
 }
