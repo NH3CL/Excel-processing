@@ -40,30 +40,33 @@ public class ExcelReader {
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         updateComponentTreeUI(frame);
 
-        frame.println("--  Keresd ki a feldolgozando excel filet (zard be az EXCEL programot) --\n");
+        frame.println("--  Keresd ki a feldolgozandó excel fájlt (zárd be az EXCEL programot) --\n 
+                      -- A formátum kötött:  \n
+                      -- [ID]	[IHonap]	[Telefonszam]	[E-mail]	AP	BD	BI oszlopoknak kell szerepelnie az A1-es cellától kezdődően \n
+                       ");
 
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             XLSX_FILE_PATH = jfc.getSelectedFile().getPath();
-            frame.println("--  Kivalasztott file: " + XLSX_FILE_PATH + " --\n");
+            frame.println("--  Kiválasztott fájl: " + XLSX_FILE_PATH + " --\n");
         }
 
-        frame.println("--  Informacio: Excel file elso munkalapja fejlec nelkul --\n");
+        frame.println("--  Informacio: Excel fájl első munkalapja fejléc nélkül --\n");
         fillEntries(XLSX_FILE_PATH);
-        frame.println("\n--  Elofeltetel: 1. honap - 2. honap - 3. honap --\n");
+        frame.println("\n--  Előfeltétel: 1. hónap - 2. hónap - 3. hónap --\n");
         splitEntries();
-        frame.println("\n--  Szamitas: Melyik honapban hanyszor szerepel egy telefonszam --\n");
+        frame.println("\n--  Számítás: Melyik hónapban hányszor szerepel egy telefonszám --\n");
         fillPlayers();
-        frame.println("\n--  Szamitas: Melyik telefonszam szerepel mindharom honapban --");
-        frame.println("--            Mennyi volt a legkevesebb a harom honapban     --\n");
+        frame.println("\n--  Számítás: Melyik telefonszám szerepel mindhárom hónapban --");
+        frame.println("--            Mennyi volt a legkevesebb a három hónapban     --\n");
         findTrilpets();
-        frame.println("\n-- Eredmeny: Egy jatekos osszes adata arrol a honaprol --");
-        frame.println("--           amikor a legkevesebbet jatszott           --\n");
+        frame.println("\n-- Eredmény: Egy jatékos összes adata arról a hónapról --");
+        frame.println("--           amikor a legkevesebbet játszott           --\n");
         writeTriplets();
 
         writeSheet(XLSX_FILE_PATH);
-        frame.println("\n-- Az eredmeny megtalalhato a bemeneti excel file uj EREDMENY munkalapjan  --\n");
+        frame.println("\n-- Az eredmény megtalálhato a bemeneti excel fájl mellett EREDMENY.xls néven  --\n");
 
     }
 
